@@ -8,9 +8,7 @@ using System.Data.SqlClient;
 namespace ProjectCSharp
 {
     class DAO
-    {
-        private const String sqlStringConnection = @"Data Source=localhost; Initial Catalog=QLSVien; uid=sa; pwd=123456";
-
+    {   
         private SqlConnection sqlCon;
         private SqlCommand cmd;
         private SqlDataReader reader;
@@ -30,10 +28,10 @@ namespace ProjectCSharp
 
         public List<String> getAllDepartmentIDs()
         {
-            sqlCon = new SqlConnection(sqlStringConnection);
+            sqlCon = MyConnection.getConnection();
             sqlCon.Open();
             List<String> result = new List<string>();
-            cmd = new SqlCommand("Select ID from KHOA", sqlCon);
+            cmd = new SqlCommand("SELECT ID FROM KHOA", sqlCon);
             reader = cmd.ExecuteReader();
             while (reader.Read())
             {
