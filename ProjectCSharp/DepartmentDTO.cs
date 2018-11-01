@@ -8,8 +8,10 @@ namespace ProjectCSharp
 {
     class DepartmentDTO
     {
-        String id, name, year;
-        public DepartmentDTO(String id, String name, String year)
+        String id, name;
+        int year;
+
+        public DepartmentDTO(String id, String name, int year)
         {
             this.id = id;
             this.name = name;
@@ -19,6 +21,9 @@ namespace ProjectCSharp
         {
             this.id = id;
             this.name = name;
+        }
+        public DepartmentDTO() {
+
         }
     }
 }

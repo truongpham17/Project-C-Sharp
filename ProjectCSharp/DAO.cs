@@ -31,12 +31,12 @@ namespace ProjectCSharp
             sqlCon = MyConnection.getConnection();
             sqlCon.Open();
             List<String> result = new List<string>();
-            cmd = new SqlCommand("SELECT ID FROM KHOA", sqlCon);
+            cmd = new SqlCommand("SELECT MAKHOA FROM KHOA", sqlCon);
             reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                var ID = reader.GetString(0);
-                result.Add(ID);
+                var id = reader.GetString(0);
+                result.Add(id);
             }
             closeConnection();
             return result;
@@ -44,14 +44,35 @@ namespace ProjectCSharp
 
         public List<DepartmentDTO> getAllDepartments()
         {
-            // to do
-            return null;
+            sqlCon = MyConnection.getConnection();
+            sqlCon.Open();
+            List<DepartmentDTO> result = new List<DepartmentDTO>();
+            cmd = new SqlCommand("SELECT MAKHOA, TENKHOA, NAMTHANHLAP FROM KHOA", sqlCon);
+            reader = cmd.ExecuteReader();
+            while (reader.Read()) {
+                var id = reader.GetString(0);
+                var name = reader.GetString(1);
+                var year = reader.GetInt16(2);
+                result.Add(new DepartmentDTO(id, name, year));
+            }
+            closeConnection();
+            return result;
         }
 
         public DepartmentDTO getDepartmentDetail(String id)
         {
-            //to do
-            return null; 
+            sqlCon = MyConnection.getConnection();
+            sqlCon.Open();
+            DepartmentDTO result = null;
+            cmd = new SqlCommand("SELECT TENKHOA, NAMTHANHLAP FROM KHOA WHERE MAKHOA = '" + id + "'", sqlCon);
+            reader = cmd.ExecuteReader();
+            if (reader.Read()) {
+                var name = reader.GetString(0);
+                var year = reader.GetInt16(1);
+                result = new DepartmentDTO(id, name, year);
+            }
+            closeConnection();
+            return result;
         }
 
         public DepartmentDTO addDepartment(DepartmentDTO dto)

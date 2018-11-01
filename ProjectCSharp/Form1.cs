@@ -19,7 +19,7 @@ namespace ProjectCSharp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // fetch Ids to combobox
+            cbId.DataSource = (new DAO()).getAllDepartmentIDs();
             // fetch the number of department to textBox
             // fill the first department's name to textBox and gridView
         }
@@ -54,6 +54,5 @@ namespace ProjectCSharp
             // Ok : Fetch ID again
             // Not : nothing
         }
-
     }
 }
