@@ -1,0 +1,26 @@
+﻿Còn 5 function trong DAO với 5 function trong form
+
+ - Dương :   
+	public List<DepartmentDTO> getAllDepartments()
+     
+  	public DepartmentDTO getDepartmentDetail(String id)
+   
+  	public DepartmentDTO addDepartment(DepartmentDTO dto)
+ - Gia :
+	public DepartmentDTO deleteDepartment(String id)
+       
+        public DepartmentDTO updateDepartment(String id, DepartmentDTO dto)
+
+	private void    Form1_Load(object sender, EventArgs e)
+
+ - Khánh :
+        private void cbId_SelectedIndexChanged(object sender, EventArgs e)
+
+ - Trương :
+	private void btnAdd_Click(object sender, EventArgs e)
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        
+        private void btnDelete_Click(object sender, EventArgs e)
+ Mình tự phân như vậy, các cậu có ý kiến gì thì đóng góp để có gì thay đổi nha :D
+ Deadline t2 5/11 nha mấy cậu
