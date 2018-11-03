@@ -12,7 +12,7 @@ namespace ProjectCSharp
         private SqlConnection sqlCon;
         private SqlCommand cmd;
         private SqlDataReader reader;
-
+        private string stringConn =  @"Data Source = DESKTOP-IH11NJ5; Initial Catalog =QLSVien ;Persist Security Info=True;User ID= sa ;Password=12345678";
         private void closeConnection()
         {
             if(reader != null)
@@ -28,7 +28,7 @@ namespace ProjectCSharp
 
         public List<String> getAllDepartmentIDs()
         {
-            sqlCon = MyConnection.getConnection();
+            sqlCon = new SqlConnection(stringConn);
             sqlCon.Open();
             List<String> result = new List<string>();
             cmd = new SqlCommand("SELECT MAKHOA FROM KHOA", sqlCon);
@@ -44,7 +44,7 @@ namespace ProjectCSharp
 
         public List<DepartmentDTO> getAllDepartments()
         {
-            sqlCon = MyConnection.getConnection();
+            sqlCon = new SqlConnection(stringConn);
             sqlCon.Open();
             List<DepartmentDTO> result = new List<DepartmentDTO>();
             cmd = new SqlCommand("SELECT MAKHOA, TENKHOA, NAMTHANHLAP FROM KHOA", sqlCon);
@@ -61,7 +61,7 @@ namespace ProjectCSharp
 
         public DepartmentDTO getDepartmentDetail(String id)
         {
-            sqlCon = MyConnection.getConnection();
+            sqlCon = new SqlConnection(stringConn);
             sqlCon.Open();
             DepartmentDTO result = null;
             cmd = new SqlCommand("SELECT TENKHOA, NAMTHANHLAP FROM KHOA WHERE MAKHOA = '" + id + "'", sqlCon);
@@ -80,14 +80,26 @@ namespace ProjectCSharp
             return null;
         }
 
-        public DepartmentDTO deleteDepartment(String id)
+        public bool deleteDepartment(String id)
         {
-            return null;
+            bool check = false;
+            sqlCon = new SqlConnection(stringConn);
+            sqlCon.Open();
+            cmd = new SqlCommand("DELETE from KHOA where MAKHOA = '" + id + "'", sqlCon);
+            check = cmd.ExecuteNonQuery() > 0 ? true : false;
+            closeConnection();
+            return check;
         }
 
-        public DepartmentDTO updateDepartment(String id, DepartmentDTO dto)
+        public bool updateDepartment(DepartmentDTO dto)
         {
-            return null;
+            bool check = false;
+            sqlCon = new SqlConnection(stringConn);
+            sqlCon.Open();
+            cmd = new SqlCommand("UPDATE KHOA set MAKHOA = '" + dto.Id + ", TENKHOA = '" + dto.Name + ", NAMTHANHLAP = '"+ dto.Year+" where MAKHOA = '" + dto.Id + "'", sqlCon);
+            check = cmd.ExecuteNonQuery() > 0 ? true : false;
+            closeConnection();
+            return check;
         } 
     }
 }

@@ -11,19 +11,25 @@ namespace ProjectCSharp
         String id, name;
         int year;
 
+        
+
         public DepartmentDTO(String id, String name, int year)
         {
-            this.id = id;
-            this.name = name;
+            this.Id = id;
+            this.Name = name;
             this.year = year;
         }
         public DepartmentDTO(String id, String name)
         {
-            this.id = id;
-            this.name = name;
+            this.Id = id;
+            this.Name = name;
         }
         public DepartmentDTO() {
 
         }
+
+        public string Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
+        public int Year { get => year; set =>  year = value; }   
     }
 }
