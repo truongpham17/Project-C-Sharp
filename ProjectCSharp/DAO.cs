@@ -12,7 +12,7 @@ namespace ProjectCSharp
         private SqlConnection sqlCon;
         private SqlCommand cmd;
         private SqlDataReader reader;
-        private string stringConn =  @"Data Source = DESKTOP-IH11NJ5; Initial Catalog =QLSVien ;Persist Security Info=True;User ID= sa ;Password=12345678";
+        private string stringConn =  @"Data Source = localhost; Initial Catalog =QLSVien ;Persist Security Info=True;User ID= sa ;Password=123456";
         private void closeConnection()
         {
             if(reader != null)
@@ -68,16 +68,30 @@ namespace ProjectCSharp
             reader = cmd.ExecuteReader();
             if (reader.Read()) {
                 var name = reader.GetString(0);
-                var year = reader.GetInt16(1);
+                var year = reader.GetInt32(1);
                 result = new DepartmentDTO(id, name, year);
             }
             closeConnection();
             return result;
         }
 
-        public DepartmentDTO addDepartment(DepartmentDTO dto)
+        public bool addDepartment(DepartmentDTO dto)
         {
-            return null;
+            bool check = false;
+            try
+            {
+                sqlCon = new SqlConnection(stringConn);
+                sqlCon.Open();
+                cmd = new SqlCommand(String.Format("INSERT INTO KHOA VALUES('{0}','{1}','{2}')", dto.Id, dto.Name, dto.Year), sqlCon);
+                check = cmd.ExecuteNonQuery() > 0 ? true : false;
+                closeConnection();
+            }
+            catch(Exception e)
+            {
+
+            }
+           
+            return check;
         }
 
         public bool deleteDepartment(String id)
@@ -96,7 +110,7 @@ namespace ProjectCSharp
             bool check = false;
             sqlCon = new SqlConnection(stringConn);
             sqlCon.Open();
-            cmd = new SqlCommand("UPDATE KHOA set MAKHOA = '" + dto.Id + ", TENKHOA = '" + dto.Name + ", NAMTHANHLAP = '"+ dto.Year+" where MAKHOA = '" + dto.Id + "'", sqlCon);
+            cmd = new SqlCommand("UPDATE KHOA set MAKHOA = '" + dto.Id + "', TENKHOA = '" + dto.Name + "', NAMTHANHLAP = '"+ dto.Year+"' where MAKHOA = '" + dto.Id + "'", sqlCon);
             check = cmd.ExecuteNonQuery() > 0 ? true : false;
             closeConnection();
             return check;
