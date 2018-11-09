@@ -32,19 +32,7 @@ namespace ProjectCSharp
             // đưa tổng khoa vào txtCount
             txtCount.Text = listIDs.Count + "";
 
-            // kiểm tra xem trong database có ID nào không, nếu có thì điền dữ liệu vào gridview và txtName
-            if (listIDs.Count > 0)
-            {
-                DepartmentDTO firstDepartment = new DAO().getDepartmentDetail(listIDs[0]);
-                txtName.Text = firstDepartment.Name;
-
-
-                gridView.ColumnCount = 2;
-                gridView.Columns[0].Name = "ID";
-                gridView.Columns[1].Name = "Name";
-                string[] row = new string[] { firstDepartment.Id, firstDepartment.Name };
-                gridView.Rows.Add(row);
-            }
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -78,7 +66,10 @@ namespace ProjectCSharp
                 gridView.Rows.RemoveAt(0);
             }
 
-            // điền thông tin vào gridview
+            // điền thông tin vào gridview gridView.ColumnCount = 2;
+            gridView.ColumnCount = 2;
+            gridView.Columns[0].Name = "ID";
+            gridView.Columns[1].Name = "Name";
             string[] row = new string[] { department.Id, department.Name };
             gridView.Rows.Add(row);
 
