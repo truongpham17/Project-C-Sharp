@@ -72,7 +72,30 @@ namespace ProjectCSharp
             gridView.Columns[1].Name = "Name";
             string[] row = new string[] { department.Id, department.Name };
             gridView.Rows.Add(row);
+            txtName.Text = department.Name;
 
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (CloseCancel() == false)
+            {
+                e.Cancel = true;
+            };
+        }
+
+        public static bool CloseCancel()
+        {
+            const string message = "Bạn có chắc chắn thoát không?";
+            const string caption = "Confirm";
+            var result = MessageBox.Show(message, caption,
+                                         MessageBoxButtons.YesNo,
+                                         MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+                return true;
+            else
+                return false;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
